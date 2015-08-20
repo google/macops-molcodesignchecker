@@ -1,0 +1,377 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D53CAFE1B715C8900073187 /* libMOLCodesignChecker.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D53CAF21B715C8900073187 /* libMOLCodesignChecker.dylib */; };
+		0D53CB0E1B715CD900073187 /* MOLCodesignChecker.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D53CB0C1B715CD900073187 /* MOLCodesignChecker.h */; };
+		0D53CB0F1B715CD900073187 /* MOLCodesignChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D53CB0D1B715CD900073187 /* MOLCodesignChecker.m */; };
+		0D53CB111B715D9700073187 /* MOLCodesignCheckerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D53CB101B715D9700073187 /* MOLCodesignCheckerTest.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0D53CAFF1B715C8900073187 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0D53CAEA1B715C8900073187 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0D53CAF11B715C8900073187;
+			remoteInfo = MOLCodesignChecker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0D53CAF21B715C8900073187 /* libMOLCodesignChecker.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libMOLCodesignChecker.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D53CAFD1B715C8900073187 /* MOLCodesignCheckerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MOLCodesignCheckerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D53CB031B715C8900073187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D53CB0C1B715CD900073187 /* MOLCodesignChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOLCodesignChecker.h; sourceTree = "<group>"; };
+		0D53CB0D1B715CD900073187 /* MOLCodesignChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOLCodesignChecker.m; sourceTree = "<group>"; };
+		0D53CB101B715D9700073187 /* MOLCodesignCheckerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOLCodesignCheckerTest.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0D53CAEF1B715C8900073187 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D53CAFA1B715C8900073187 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D53CAFE1B715C8900073187 /* libMOLCodesignChecker.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0D53CAE91B715C8900073187 = {
+			isa = PBXGroup;
+			children = (
+				0D53CAF41B715C8900073187 /* Source */,
+				0D53CB011B715C8900073187 /* Tests */,
+				0D53CAF31B715C8900073187 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0D53CAF31B715C8900073187 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0D53CAF21B715C8900073187 /* libMOLCodesignChecker.dylib */,
+				0D53CAFD1B715C8900073187 /* MOLCodesignCheckerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0D53CAF41B715C8900073187 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				0D53CB0C1B715CD900073187 /* MOLCodesignChecker.h */,
+				0D53CB0D1B715CD900073187 /* MOLCodesignChecker.m */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		0D53CB011B715C8900073187 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0D53CB101B715D9700073187 /* MOLCodesignCheckerTest.m */,
+				0D53CB021B715C8900073187 /* Supporting Files */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		0D53CB021B715C8900073187 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0D53CB031B715C8900073187 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		0D53CAF01B715C8900073187 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D53CB0E1B715CD900073187 /* MOLCodesignChecker.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		0D53CAF11B715C8900073187 /* MOLCodesignChecker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D53CB061B715C8900073187 /* Build configuration list for PBXNativeTarget "MOLCodesignChecker" */;
+			buildPhases = (
+				0D53CAEE1B715C8900073187 /* Sources */,
+				0D53CAEF1B715C8900073187 /* Frameworks */,
+				0D53CAF01B715C8900073187 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MOLCodesignChecker;
+			productName = MOLCodesignChecker;
+			productReference = 0D53CAF21B715C8900073187 /* libMOLCodesignChecker.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		0D53CAFC1B715C8900073187 /* MOLCodesignCheckerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D53CB091B715C8900073187 /* Build configuration list for PBXNativeTarget "MOLCodesignCheckerTests" */;
+			buildPhases = (
+				0D53CAF91B715C8900073187 /* Sources */,
+				0D53CAFA1B715C8900073187 /* Frameworks */,
+				0D53CAFB1B715C8900073187 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0D53CB001B715C8900073187 /* PBXTargetDependency */,
+			);
+			name = MOLCodesignCheckerTests;
+			productName = MOLCodesignCheckerTests;
+			productReference = 0D53CAFD1B715C8900073187 /* MOLCodesignCheckerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0D53CAEA1B715C8900073187 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Google Inc";
+				TargetAttributes = {
+					0D53CAF11B715C8900073187 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					0D53CAFC1B715C8900073187 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 0D53CAED1B715C8900073187 /* Build configuration list for PBXProject "MOLCodesignChecker" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0D53CAE91B715C8900073187;
+			productRefGroup = 0D53CAF31B715C8900073187 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0D53CAF11B715C8900073187 /* MOLCodesignChecker */,
+				0D53CAFC1B715C8900073187 /* MOLCodesignCheckerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0D53CAFB1B715C8900073187 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0D53CAEE1B715C8900073187 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D53CB0F1B715CD900073187 /* MOLCodesignChecker.m in Sources */,
+				0D53CB111B715D9700073187 /* MOLCodesignCheckerTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D53CAF91B715C8900073187 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0D53CB001B715C8900073187 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0D53CAF11B715C8900073187 /* MOLCodesignChecker */;
+			targetProxy = 0D53CAFF1B715C8900073187 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0D53CB041B715C8900073187 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		0D53CB051B715C8900073187 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		0D53CB071B715C8900073187 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0D53CB081B715C8900073187 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		0D53CB0A1B715C8900073187 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MOLCodesignCheckerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0D53CB0B1B715C8900073187 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MOLCodesignCheckerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0D53CAED1B715C8900073187 /* Build configuration list for PBXProject "MOLCodesignChecker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D53CB041B715C8900073187 /* Debug */,
+				0D53CB051B715C8900073187 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0D53CB061B715C8900073187 /* Build configuration list for PBXNativeTarget "MOLCodesignChecker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D53CB071B715C8900073187 /* Debug */,
+				0D53CB081B715C8900073187 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		0D53CB091B715C8900073187 /* Build configuration list for PBXNativeTarget "MOLCodesignCheckerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D53CB0A1B715C8900073187 /* Debug */,
+				0D53CB0B1B715C8900073187 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0D53CAEA1B715C8900073187 /* Project object */;
+}
