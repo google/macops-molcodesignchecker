@@ -16,77 +16,74 @@
 
 #import <Foundation/Foundation.h>
 
-///
-///  MOLCodesignChecker validates a binary (either on-disk or in memory) has been signed
-///  and if so allows for pulling out the certificates that were used to sign it.
-///
+/**
+  `MOLCodesignChecker` validates a binary (either on-disk or in memory) has been signed
+  and if so allows for pulling out the certificates that were used to sign it.
+ 
+  @warning When checking bundles this class will ignore non-code resources inside the bundle for
+  validation purposes. This very dramatically speeds up validation but means that it is possible
+  to tamper with resource files without this class noticing.
+*/
 @interface MOLCodesignChecker : NSObject
 
-///
-///  The SecStaticCodeRef that this MOLCodesignChecker is working around
-///
+/**  The `SecStaticCodeRef` that this `MOLCodesignChecker` is wrapping. */
 @property(readonly) SecStaticCodeRef codeRef;
 
-///
-///  Returns a dictionary of raw signing information
-///
+/**  
+  A dictionary of raw signing information provided by the Security framework.
+*/
 @property(readonly) NSDictionary *signingInformation;
 
-///
-///  Returns an array of @c MOLCertificate objects representing the chain that signed this binary.
-///
+/**  An array of `MOLCertificate` objects representing the chain that signed this binary. */
 @property(readonly) NSArray *certificates;
 
-///
-///  Returns the leaf certificate that this binary was signed with
-///
+/**  The leaf certificate that this binary was signed with. */
 @property(readonly, nonatomic) MOLCertificate *leafCertificate;
 
-///
-///  Returns the on-disk path of this binary.
-///
+/** The on-disk path of this binary. */
 @property(readonly, nonatomic) NSString *binaryPath;
 
-///
-///  Designated initializer
-///  Takes ownership of the codeRef reference.
-///
-///  @param codeRef a SecStaticCodeRef or SecCodeRef representing a binary.
-///  @return an initialized MOLCodesignChecker if the binary is validly signed, nil otherwise.
-///
+/**
+  Designated initializer
+  Takes ownership of the codeRef reference.
+
+  @param codeRef A `SecStaticCodeRef` or `SecCodeRef` representing a binary.
+  @return An initialized `MOLCodesignChecker` if the binary is validly signed, `nil` otherwise.
+*/
 - (instancetype)initWithSecStaticCodeRef:(SecStaticCodeRef)codeRef;
 
-///
-///  Convenience initializer for a binary on disk.
-///
-///  @param binaryPath A binary file on disk
-///  @return an initialized MOLCodesignChecker if file is a binary and is signed, nil otherwise.
-///
+/**
+  Initialize with a binary on disk.
+ 
+  @note While the method name mentions binary path, it is possible to initialize with a bundle
+  instead, passing the path to the root of the bundle.
+
+  @param binaryPath Path to a binary file on disk.
+  @return An initialized `MOLCodesignChecker` if file is signed binary, `nil` otherwise.
+*/
 - (instancetype)initWithBinaryPath:(NSString *)binaryPath;
 
-///
-///  Convenience initializer for a binary that is running, by its process ID.
-///
-///  @param PID Id of a running process.
-///  @return an initialized MOLCodesignChecker if binary is signed, nil otherwise.
-///
+/**
+  Initialize with a running binary using its process ID.
+
+  @param PID PID of a running process.
+  @return An initialized `MOLCodesignChecker` if binary is signed, `nil` otherwise.
+*/
 - (instancetype)initWithPID:(pid_t)PID;
 
-///
-///  Convenience initializer for the currently running process.
-///
-///  @return an initialized MOLCodesignChecker if current binary is signed, nil otherwise.
-///
+/**
+  Initialize with the currently running process.
+
+  @return An initialized `MOLCodesignChecker` if current binary is signed, `nil` otherwise.
+*/
 - (instancetype)initWithSelf;
 
-///
-///  Compares the signatures of the binaries represented by this MOLCodesignChecker and
-///  @c otherChecker.
-///
-///  If both binaries are correctly signed and the leaf signatures are identical.
-///
-///  @return YES if both binaries are signed with the same leaf certificate.
-///
+/**
+  Compares the signatures of the binaries represented by this `MOLCodesignChecker` and 
+  `otherChecker` to see if both are correctly signed and the leaf signatures are identical.
+
+  @return YES if both binaries are signed with the same leaf certificate.
+*/
 - (BOOL)signingInformationMatches:(MOLCodesignChecker *)otherChecker;
 
 @end

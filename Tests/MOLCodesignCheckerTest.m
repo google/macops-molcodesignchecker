@@ -18,19 +18,19 @@
 #import "MOLCodesignChecker.h"
 
 /**
- Tests for @c MOLCodesignChecker
+  Tests for `MOLCodesignChecker`
 
- Most of these tests rely on some facts about @c launchd:
+  Most of these tests rely on some facts about `launchd`:
 
- * launchd is in /sbin
- * launchd is PID 1
- * launchd is signed
- * launchd's leaf cert has a CN of "Software Signing"
- * launchd's leaf cert has an OU of "Apple Software"
- * launchd's leaf cert has an ON of "Apple Inc."
+  * launchd is in /sbin
+  * launchd is PID 1
+  * launchd is signed
+  * launchd's leaf cert has a CN of "Software Signing"
+  * launchd's leaf cert has an OU of "Apple Software"
+  * launchd's leaf cert has an ON of "Apple Inc."
 
- These facts are pretty stable, so shouldn't be a problem.
-**/
+  These facts are pretty stable, so shouldn't be a problem.
+*/
 @interface MOLCodesignCheckerTest : XCTestCase
 @end
 

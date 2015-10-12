@@ -1,13 +1,14 @@
 Pod::Spec.new do |s|
   s.name         = 'MOLCodesignChecker'
-  s.version      = '1.0'
+  s.version      = '1.1'
   s.platform     = :osx
-  s.license      = 'Apache'
+  s.license      = { :type => 'Apache 2', :file => 'LICENSE' }
   s.homepage     = 'https://github.com/google/macops-molcodesignchecker'
-  s.author       = { 'Google Macops' => 'macops-external@google.com' }
+  s.authors      = { 'Google Macops' => 'macops-external@google.com' }
   s.summary      = 'Perform codesign validation simply in Objective-C'
-  s.source       = { :git => 'https://github.com/google/macops-molcodesignchecker.git', :tag => 'v1.0' }
+  s.source       = { :git => 'https://github.com/google/macops-molcodesignchecker.git',
+                     :tag => "v#{s.version}" }
   s.source_files = 'Source/MOLCodesignChecker.{h,m}'
   s.framework    = 'Security'
-  s.dependency 'MOLCertificate', '~> 1.0'
+  s.dependency 'MOLCertificate', '~> 1.1'
 end
