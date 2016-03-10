@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'MOLCodesignChecker'
-  s.version      = '1.2'
+  s.version      = '1.3'
   s.platform     = :osx
   s.license      = { :type => 'Apache 2.0', :file => 'LICENSE' }
   s.homepage     = 'https://github.com/google/macops-molcodesignchecker'
@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
                      :tag => "v#{s.version}" }
   s.source_files = 'Source/MOLCodesignChecker.{h,m}'
   s.framework    = 'Security'
-  s.dependency 'MOLCertificate', '~> 1.1'
+  s.dependency 'MOLCertificate', '~> 1.3'
 end

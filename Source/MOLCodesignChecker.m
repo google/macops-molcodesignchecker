@@ -82,15 +82,7 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
     // Get array of certificates.
     NSArray *certs = _signingInformation[(id)kSecCodeInfoCertificates];
     if (!certs) return nil;
-
-    // Wrap `SecCertificateRef` objects in `MOLCertificate` and put in a new NSArray
-    NSMutableArray *mutableCerts = [[NSMutableArray alloc] initWithCapacity:certs.count];
-    for (NSUInteger i = 0; i < certs.count; ++i) {
-      SecCertificateRef certRef = (__bridge SecCertificateRef)certs[i];
-      MOLCertificate *newCert = [[MOLCertificate alloc] initWithSecCertificateRef:certRef];
-      [mutableCerts addObject:newCert];
-    }
-    _certificates = [mutableCerts copy];
+    _certificates = [MOLCertificate certificatesFromArray:certs];
 
     _codeRef = codeRef;
     CFRetain(_codeRef);
