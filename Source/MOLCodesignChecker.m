@@ -49,39 +49,42 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
 /// Array of `MOLCertificate's` representing the chain of certs the represented
 /// executable was signed with.
 @property NSMutableArray *certificates;
+
+/// Cached designated requirement
+@property SecRequirementRef requirement;
 @end
 
 @implementation MOLCodesignChecker
 
 #pragma mark Init/dealloc
 
-- (instancetype)initWithSecStaticCodeRef:(SecStaticCodeRef)codeRef {
+- (instancetype)initWithSecStaticCodeRef:(SecStaticCodeRef)codeRef error:(NSError **)error {
   self = [super init];
 
   if (self) {
-    // First check the signing is valid
+    OSStatus status = errSecSuccess;
+    CFErrorRef cfError = NULL;
+
+    // First check the signing is valid.
     if (CFGetTypeID(codeRef) == SecStaticCodeGetTypeID()) {
-      if (SecStaticCodeCheckValidity(codeRef, kStaticSigningFlags, NULL) != errSecSuccess) {
-        return nil;
+      status = SecStaticCodeCheckValidityWithErrors(codeRef, kStaticSigningFlags, NULL, &cfError);
+    } else if (CFGetTypeID(codeRef) == SecStaticCodeGetTypeID()) {
+      status = SecCodeCheckValidityWithErrors((SecCodeRef)codeRef, kSigningFlags, NULL, &cfError);
+    }
+
+    if (status != errSecSuccess) {
+      if (error) {
+        *error = CFBridgingRelease(cfError);
       }
-    } else if (CFGetTypeID(codeRef) == SecCodeGetTypeID()) {
-      if (SecCodeCheckValidity((SecCodeRef)codeRef, kSigningFlags, NULL) != errSecSuccess) {
-        return nil;
-      }
-    } else {
-      return nil;
     }
 
     // Get CFDictionary of signing information for binary
-    OSStatus status = errSecSuccess;
     CFDictionaryRef signingDict = NULL;
     status = SecCodeCopySigningInformation(codeRef, kSecCSSigningInformation, &signingDict);
     _signingInformation = CFBridgingRelease(signingDict);
-    if (status != errSecSuccess) return nil;
 
     // Get array of certificates.
     NSArray *certs = _signingInformation[(id)kSecCodeInfoCertificates];
-    if (!certs) return nil;
     _certificates = [MOLCertificate certificatesFromArray:certs];
 
     _codeRef = codeRef;
@@ -91,51 +94,82 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
   return self;
 }
 
-- (instancetype)initWithBinaryPath:(NSString *)binaryPath {
+- (instancetype)initWithSecStaticCodeRef:(SecStaticCodeRef)codeRef {
+  NSError *error;
+  self = [self initWithSecStaticCodeRef:codeRef error:&error];
+  return (error) ? nil : self;
+}
+
+- (instancetype)initWithBinaryPath:(NSString *)binaryPath error:(NSError **)error {
+  OSStatus status = errSecSuccess;
   SecStaticCodeRef codeRef = NULL;
 
   // Get SecStaticCodeRef for binary
-  if (SecStaticCodeCreateWithPath(
-          (__bridge CFURLRef)[NSURL fileURLWithPath:binaryPath isDirectory:NO],
-          kSecCSDefaultFlags,
-          &codeRef) == errSecSuccess) {
-    self = [self initWithSecStaticCodeRef:codeRef];
-  } else {
-    self = nil;
+  status = SecStaticCodeCreateWithPath((__bridge CFURLRef)[NSURL fileURLWithPath:binaryPath],
+                                       kSecCSDefaultFlags, &codeRef);
+  if (status != errSecSuccess) {
+    if (error) {
+      *error = [self errorWithCode:status];
+    }
+    return nil;
   }
 
-  if (codeRef) CFRelease(codeRef);
+  self = [self initWithSecStaticCodeRef:codeRef error:error];
+  if (codeRef) CFRelease(codeRef);  // it was retained above
   return self;
 }
 
-- (instancetype)initWithPID:(pid_t)PID {
-  SecCodeRef codeRef = NULL;
-  NSDictionary *attributes = @{ (__bridge NSString *)kSecGuestAttributePid : @(PID) };
+- (instancetype)initWithBinaryPath:(NSString *)binaryPath {
+  NSError *error;
+  self = [self initWithBinaryPath:binaryPath error:&error];
+  return (error) ? nil : self;
+}
 
-  if (SecCodeCopyGuestWithAttributes(
-          NULL,
-          (__bridge CFDictionaryRef)attributes,
-          kSecCSDefaultFlags,
-          &codeRef) == errSecSuccess) {
-    self = [self initWithSecStaticCodeRef:codeRef];
-  } else {
-    self = nil;
+- (instancetype)initWithPID:(pid_t)pid error:(NSError **)error {
+  OSStatus status = errSecSuccess;
+  SecCodeRef codeRef = NULL;
+  NSDictionary *attributes = @{ (__bridge NSString *)kSecGuestAttributePid : @(pid) };
+
+  status = SecCodeCopyGuestWithAttributes(NULL, (__bridge CFDictionaryRef)attributes,
+                                          kSecCSDefaultFlags, &codeRef);
+  if (status != errSecSuccess) {
+    if (error) {
+      *error = [self errorWithCode:status];
+    }
+    return nil;
   }
 
-  if (codeRef) CFRelease(codeRef);
+  self = [self initWithSecStaticCodeRef:codeRef error:error];
+  if (codeRef) CFRelease(codeRef);  // it was retained above
+  return self;
+}
+
+- (instancetype)initWithPID:(pid_t)pid {
+  NSError *error;
+  self = [self initWithPID:pid error:&error];
+  return (error) ? nil : self;
+}
+
+- (instancetype)initWithSelfError:(NSError **)error {
+  SecCodeRef codeSelf = NULL;
+  OSStatus status = SecCodeCopySelf(kSecCSDefaultFlags, &codeSelf);
+
+  if (status != errSecSuccess) {
+    if (error) {
+      *error = [self errorWithCode:status];
+    }
+    return nil;
+  }
+
+  self = [self initWithSecStaticCodeRef:codeSelf error:error];
+  if (codeSelf) CFRelease(codeSelf);  // it was retained above
   return self;
 }
 
 - (instancetype)initWithSelf {
-  SecCodeRef codeSelf = NULL;
-  if (SecCodeCopySelf(kSecCSDefaultFlags, &codeSelf) == errSecSuccess) {
-    self = [self initWithSecStaticCodeRef:codeSelf];
-  } else {
-    self = nil;
-  }
-
-  if (codeSelf) CFRelease(codeSelf);
-  return self;
+  NSError *error;
+  self = [self initWithSelfError:&error];
+  return (error) ? nil : self;
 }
 
 - (instancetype)init {
@@ -147,6 +181,10 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
   if (_codeRef) {
     CFRelease(_codeRef);
     _codeRef = NULL;
+  }
+  if (_requirement) {
+    CFRelease(_requirement);
+    _requirement = NULL;
   }
 }
 
@@ -166,6 +204,13 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
 
 #pragma mark Public accessors
 
+- (SecRequirementRef)requirement {
+  if (!_requirement) {
+    SecCodeCopyDesignatedRequirement(self.codeRef, kSecCSDefaultFlags, &_requirement);
+  }
+  return _requirement;
+}
+
 - (MOLCertificate *)leafCertificate {
   return [self.certificates firstObject];
 }
@@ -180,6 +225,25 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
 
 - (BOOL)signingInformationMatches:(MOLCodesignChecker *)otherChecker {
   return [self.certificates isEqual:otherChecker.certificates];
+}
+
+- (BOOL)validateWithRequirement:(SecRequirementRef)requirement {
+  if (!requirement) return NO;
+  return (SecStaticCodeCheckValidity(self.codeRef, kStaticSigningFlags,
+                                     requirement) == errSecSuccess);
+}
+
+#pragma mark Private
+
+- (NSError *)errorWithCode:(OSStatus)code {
+  CFStringRef cfErrorString = SecCopyErrorMessageString(code, NULL);
+  NSString *errorStr = CFBridgingRelease(cfErrorString);
+
+  NSDictionary *userInfo = @{
+    NSLocalizedDescriptionKey: errorStr
+  };
+
+  return [NSError errorWithDomain:@"com.google.molcodesignchecker" code:code userInfo:userInfo];
 }
 
 @end

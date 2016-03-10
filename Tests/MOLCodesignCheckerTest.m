@@ -42,9 +42,11 @@
 }
 
 - (void)testInitWithInvalidBinaryPath {
+  NSError *error;
   MOLCodesignChecker *sut =
-      [[MOLCodesignChecker alloc] initWithBinaryPath:@"/tmp/this/file/doesnt/exist"];
+      [[MOLCodesignChecker alloc] initWithBinaryPath:@"/tmp/this/file/doesnt/exist" error:&error];
   XCTAssertNil(sut);
+  XCTAssertNotNil(error);
 }
 
 - (void)testInitWithPID {
@@ -53,8 +55,10 @@
 }
 
 - (void)testInitWithInvalidPID {
-  MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithPID:999999999];
+  NSError *error;
+  MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithPID:999999999 error:&error];
   XCTAssertNil(sut);
+  XCTAssertNotNil(error);
 }
 
 - (void)testInitWithSelf {
@@ -98,6 +102,13 @@
   MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithPID:1];
   XCTAssertNotNil(sut.signingInformation);
   XCTAssertEqualObjects(sut.signingInformation[@"source"], @"embedded");
+}
+
+- (void)testValidateRequirement {
+  MOLCodesignChecker *sut1 = [[MOLCodesignChecker alloc] initWithPID:1];
+  MOLCodesignChecker *sut2 = [[MOLCodesignChecker alloc] initWithSelf];
+
+  XCTAssertFalse([sut1 validateWithRequirement:sut2.requirement]);
 }
 
 @end

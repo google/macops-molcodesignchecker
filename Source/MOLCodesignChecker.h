@@ -30,6 +30,13 @@
 @property(readonly) SecStaticCodeRef codeRef;
 
 /**
+  The designated requirement for this binary.
+ 
+  Does not need to be freed.
+*/
+@property(readonly, nonatomic) SecRequirementRef requirement;
+
+/**
   A dictionary of raw signing information provided by the Security framework.
 */
 @property(readonly) NSDictionary *signingInformation;
@@ -57,8 +64,19 @@
   @note Takes ownership of `codeRef`.
 
   @param codeRef A `SecStaticCodeRef` or `SecCodeRef` representing a binary.
-  @return An initialized `MOLCodesignChecker` if the binary is validly signed, `nil` otherwise.
+  @param error NSError to be filled in if validation fails for any reason.
+  @return An initialized `MOLCodesignChecker`
 */
+- (instancetype)initWithSecStaticCodeRef:(SecStaticCodeRef)codeRef error:(NSError **)error;
+
+/**
+  Initialize with a SecStaticCodeRef (or SecCodeRef);
+ 
+  @note Takes ownership of `codeRef`.
+
+  @param codeRef A `SecStaticCodeRef` or `SecCodeRef` representing a binary.
+  @return An initialized `MOLCodesignChecker` or nil if validation failed.
+ */
 - (instancetype)initWithSecStaticCodeRef:(SecStaticCodeRef)codeRef;
 
 /**
@@ -68,22 +86,53 @@
   instead by passing the path to the root of the bundle.
 
   @param binaryPath Path to a binary file on disk.
-  @return An initialized `MOLCodesignChecker` if file is signed binary, `nil` otherwise.
+  @param error NSError to be filled in if validation fails for any reason.
+  @return An initialized `MOLCodesignChecker`.
 */
+- (instancetype)initWithBinaryPath:(NSString *)binaryPath error:(NSError **)error;
+
+/**
+  Initialize with a binary on disk.
+
+  @note While the method name mentions binary path, it is possible to initialize with a bundle
+  instead by passing the path to the root of the bundle.
+
+  @param binaryPath Path to a binary file on disk.
+  @return An initialized `MOLCodesignChecker` or nil if validation failed.
+ */
 - (instancetype)initWithBinaryPath:(NSString *)binaryPath;
 
 /**
   Initialize with a running binary using its process ID.
 
-  @param PID PID of a running process.
-  @return An initialized `MOLCodesignChecker` if binary is signed, `nil` otherwise.
+  @param pid PID of a running process.
+  @param error NSError to be filled in if validation fails for any reason.
+  @return An initialized `MOLCodesignChecker`.
 */
-- (instancetype)initWithPID:(pid_t)PID;
+- (instancetype)initWithPID:(pid_t)pid error:(NSError **)error;
+
+/**
+  Initialize with a running binary using its process ID.
+
+  @param pid PID of a running process.
+  @return An initialized `MOLCodesignChecker` or nil if validation failed.
+*/
+- (instancetype)initWithPID:(pid_t)pid;
 
 /**
   Initialize with the currently running process.
 
-  @return An initialized `MOLCodesignChecker` if current binary is signed, `nil` otherwise.
+  @param error Optional NSError to be filled in when returning nil.
+  @param error NSError to be filled in if validation fails for any reason.
+  @return An initialized `MOLCodesignChecker`.
+*/
+- (instancetype)initWithSelfError:(NSError **)error;
+
+/**
+  Initialize with the currently running process.
+
+  @param error Optional NSError to be filled in when returning nil.
+  @return An initialized `MOLCodesignChecker` or nil if validation failed.
 */
 - (instancetype)initWithSelf;
 
@@ -94,5 +143,10 @@
   @return YES if both binaries are signed with the same leaf certificate.
 */
 - (BOOL)signingInformationMatches:(MOLCodesignChecker *)otherChecker;
+
+/**
+  Validates this binary against the given requirement.
+*/
+- (BOOL)validateWithRequirement:(SecRequirementRef)requirement;
 
 @end
