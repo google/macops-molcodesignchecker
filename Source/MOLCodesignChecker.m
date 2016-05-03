@@ -48,7 +48,7 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
 @interface MOLCodesignChecker ()
 /// Array of `MOLCertificate's` representing the chain of certs the represented
 /// executable was signed with.
-@property NSMutableArray *certificates;
+@property(copy) NSMutableArray *certificates;
 
 /// Cached designated requirement
 @property SecRequirementRef requirement;
@@ -221,6 +221,10 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
   NSURL *pathURL = CFBridgingRelease(path);
   if (status != errSecSuccess) return nil;
   return [pathURL path];
+}
+
+- (uint32_t)signatureFlags {
+  return [self.signingInformation[(__bridge id)kSecCodeInfoFlags] intValue];
 }
 
 - (BOOL)signingInformationMatches:(MOLCodesignChecker *)otherChecker {

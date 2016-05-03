@@ -31,7 +31,7 @@
 
 /**
   The designated requirement for this binary.
- 
+
   Does not need to be freed.
 */
 @property(readonly, nonatomic) SecRequirementRef requirement;
@@ -58,6 +58,9 @@
 /** The on-disk path of this binary. */
 @property(readonly, nonatomic) NSString *binaryPath;
 
+/** Code signature flags. */
+@property(readonly, nonatomic) uint32_t signatureFlags;
+
 /**
   Designated initializer
 
@@ -71,7 +74,7 @@
 
 /**
   Initialize with a SecStaticCodeRef (or SecCodeRef);
- 
+
   @note Takes ownership of `codeRef`.
 
   @param codeRef A `SecStaticCodeRef` or `SecCodeRef` representing a binary.
