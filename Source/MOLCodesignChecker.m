@@ -58,7 +58,7 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
 
 #pragma mark Init/dealloc
 
-- (instancetype)initWithSecStaticCodeRef:(SecCodeRef)codeRef error:(NSError **)error {
+- (instancetype)initWithSecStaticCodeRef:(SecStaticCodeRef)codeRef error:(NSError **)error {
   self = [super init];
 
   if (self) {
