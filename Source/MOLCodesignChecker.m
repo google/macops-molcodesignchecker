@@ -139,7 +139,7 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
     return nil;
   }
 
-  self = [self initWithSecStaticCodeRef:codeRef error:error];
+  self = [self initWithSecStaticCodeRef:(SecStaticCodeRef)codeRef error:error];
   if (codeRef) CFRelease(codeRef);  // it was retained above
   return self;
 }
@@ -161,7 +161,7 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
     return nil;
   }
 
-  self = [self initWithSecStaticCodeRef:codeSelf error:error];
+  self = [self initWithSecStaticCodeRef:(SecStaticCodeRef)codeSelf error:error];
   if (codeSelf) CFRelease(codeSelf);  // it was retained above
   return self;
 }
