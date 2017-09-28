@@ -10,7 +10,9 @@
 		0D53CAFE1B715C8900073187 /* libMOLCodesignChecker.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D53CAF21B715C8900073187 /* libMOLCodesignChecker.dylib */; };
 		0D53CB0E1B715CD900073187 /* MOLCodesignChecker.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D53CB0C1B715CD900073187 /* MOLCodesignChecker.h */; };
 		0D53CB0F1B715CD900073187 /* MOLCodesignChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D53CB0D1B715CD900073187 /* MOLCodesignChecker.m */; };
-		0D53CB111B715D9700073187 /* MOLCodesignCheckerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D53CB101B715D9700073187 /* MOLCodesignCheckerTest.m */; };
+		1541D84B02B099EE81C402DB /* libPods-MOLCodesignChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C86D09A14F44225DF67CCA7B /* libPods-MOLCodesignChecker.a */; };
+		596DEAF45F5C3B08DA095BA6 /* libPods-MOLCodesignCheckerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D66A83AFF1637FA7A1D451 /* libPods-MOLCodesignCheckerTests.a */; };
+		C7064C321F7D0CA30044A9DB /* MOLCodesignCheckerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D53CB101B715D9700073187 /* MOLCodesignCheckerTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +32,12 @@
 		0D53CB0C1B715CD900073187 /* MOLCodesignChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOLCodesignChecker.h; sourceTree = "<group>"; };
 		0D53CB0D1B715CD900073187 /* MOLCodesignChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOLCodesignChecker.m; sourceTree = "<group>"; };
 		0D53CB101B715D9700073187 /* MOLCodesignCheckerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOLCodesignCheckerTest.m; sourceTree = "<group>"; };
+		4B04ACF8457A31F8049FECED /* Pods-MOLCodesignCheckerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOLCodesignCheckerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MOLCodesignCheckerTests/Pods-MOLCodesignCheckerTests.release.xcconfig"; sourceTree = "<group>"; };
+		713707D9ACC462A1D5C26ECB /* Pods-MOLCodesignChecker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOLCodesignChecker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MOLCodesignChecker/Pods-MOLCodesignChecker.debug.xcconfig"; sourceTree = "<group>"; };
+		83D66A83AFF1637FA7A1D451 /* libPods-MOLCodesignCheckerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MOLCodesignCheckerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D4C3286EE86C0DDC8AA22DD /* Pods-MOLCodesignCheckerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOLCodesignCheckerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MOLCodesignCheckerTests/Pods-MOLCodesignCheckerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C86D09A14F44225DF67CCA7B /* libPods-MOLCodesignChecker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MOLCodesignChecker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB7C58C125688E8356ACF8D2 /* Pods-MOLCodesignChecker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOLCodesignChecker.release.xcconfig"; path = "Pods/Target Support Files/Pods-MOLCodesignChecker/Pods-MOLCodesignChecker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1541D84B02B099EE81C402DB /* libPods-MOLCodesignChecker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +54,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D53CAFE1B715C8900073187 /* libMOLCodesignChecker.dylib in Frameworks */,
+				596DEAF45F5C3B08DA095BA6 /* libPods-MOLCodesignCheckerTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +67,8 @@
 				0D53CAF41B715C8900073187 /* Source */,
 				0D53CB011B715C8900073187 /* Tests */,
 				0D53CAF31B715C8900073187 /* Products */,
+				CBB4B25261340F28B4F0DFD2 /* Pods */,
+				F8A3C2A94D44012A36C21882 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,6 +107,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		CBB4B25261340F28B4F0DFD2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				713707D9ACC462A1D5C26ECB /* Pods-MOLCodesignChecker.debug.xcconfig */,
+				EB7C58C125688E8356ACF8D2 /* Pods-MOLCodesignChecker.release.xcconfig */,
+				8D4C3286EE86C0DDC8AA22DD /* Pods-MOLCodesignCheckerTests.debug.xcconfig */,
+				4B04ACF8457A31F8049FECED /* Pods-MOLCodesignCheckerTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F8A3C2A94D44012A36C21882 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C86D09A14F44225DF67CCA7B /* libPods-MOLCodesignChecker.a */,
+				83D66A83AFF1637FA7A1D451 /* libPods-MOLCodesignCheckerTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -113,9 +145,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0D53CB061B715C8900073187 /* Build configuration list for PBXNativeTarget "MOLCodesignChecker" */;
 			buildPhases = (
+				B4A6237725C76E4070DA8288 /* [CP] Check Pods Manifest.lock */,
 				0D53CAEE1B715C8900073187 /* Sources */,
 				0D53CAEF1B715C8900073187 /* Frameworks */,
 				0D53CAF01B715C8900073187 /* Headers */,
+				B5BBE028A80B5DAFBDFA19FE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,9 +164,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0D53CB091B715C8900073187 /* Build configuration list for PBXNativeTarget "MOLCodesignCheckerTests" */;
 			buildPhases = (
+				702EC30AC7D084802FEC5F26 /* [CP] Check Pods Manifest.lock */,
 				0D53CAF91B715C8900073187 /* Sources */,
 				0D53CAFA1B715C8900073187 /* Frameworks */,
 				0D53CAFB1B715C8900073187 /* Resources */,
+				113BA328598A84A2EAAF8B8F /* [CP] Embed Pods Frameworks */,
+				A203A483EED103147C45A12D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -150,7 +187,7 @@
 		0D53CAEA1B715C8900073187 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Google Inc";
 				TargetAttributes = {
 					0D53CAF11B715C8900073187 = {
@@ -189,6 +226,84 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		113BA328598A84A2EAAF8B8F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MOLCodesignCheckerTests/Pods-MOLCodesignCheckerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		702EC30AC7D084802FEC5F26 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A203A483EED103147C45A12D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MOLCodesignCheckerTests/Pods-MOLCodesignCheckerTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B4A6237725C76E4070DA8288 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B5BBE028A80B5DAFBDFA19FE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MOLCodesignChecker/Pods-MOLCodesignChecker-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0D53CAEE1B715C8900073187 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -202,7 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D89310D1C922742002E8D74 /* MOLCodesignCheckerTest.m in Sources */,
+				C7064C321F7D0CA30044A9DB /* MOLCodesignCheckerTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,16 +343,21 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -268,10 +388,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
@@ -279,6 +402,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -293,6 +417,7 @@
 		};
 		0D53CB071B715C8900073187 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 713707D9ACC462A1D5C26ECB /* Pods-MOLCodesignChecker.debug.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -303,6 +428,7 @@
 		};
 		0D53CB081B715C8900073187 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB7C58C125688E8356ACF8D2 /* Pods-MOLCodesignChecker.release.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -313,6 +439,7 @@
 		};
 		0D53CB0A1B715C8900073187 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D4C3286EE86C0DDC8AA22DD /* Pods-MOLCodesignCheckerTests.debug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -330,6 +457,7 @@
 		};
 		0D53CB0B1B715C8900073187 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B04ACF8457A31F8049FECED /* Pods-MOLCodesignCheckerTests.release.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -360,6 +488,7 @@
 				0D53CB081B715C8900073187 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0D53CB091B715C8900073187 /* Build configuration list for PBXNativeTarget "MOLCodesignCheckerTests" */ = {
 			isa = XCConfigurationList;
@@ -368,6 +497,7 @@
 				0D53CB0B1B715C8900073187 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

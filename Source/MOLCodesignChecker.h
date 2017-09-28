@@ -125,8 +125,7 @@
 /**
   Initialize with the currently running process.
 
-  @param error Optional NSError to be filled in when returning nil.
-  @param error NSError to be filled in if validation fails for any reason.
+  @param error Optional NSError to be filled in if validation fails for any reason.
   @return An initialized `MOLCodesignChecker`.
 */
 - (instancetype)initWithSelfError:(NSError **)error;
@@ -134,7 +133,6 @@
 /**
   Initialize with the currently running process.
 
-  @param error Optional NSError to be filled in when returning nil.
   @return An initialized `MOLCodesignChecker` or nil if validation failed.
 */
 - (instancetype)initWithSelf;

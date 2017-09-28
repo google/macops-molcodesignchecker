@@ -98,6 +98,14 @@
   XCTAssertNotNil((id)sut.codeRef);
 }
 
+- (void)testCodeRefCast {
+  MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithSelf];
+  XCTAssertEqual(CFGetTypeID(sut.codeRef), SecCodeGetTypeID());
+
+  sut = [[MOLCodesignChecker alloc] initWithBinaryPath:@"/sbin/launchd"];
+  XCTAssertEqual(CFGetTypeID(sut.codeRef), SecStaticCodeGetTypeID());
+}
+
 - (void)testSigningInformation {
   MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithPID:1];
   XCTAssertNotNil(sut.signingInformation);
