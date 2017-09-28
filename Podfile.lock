@@ -1,11 +1,11 @@
 PODS:
-  - MOLCertificate (1.5)
+  - MOLCertificate (1.6)
 
 DEPENDENCIES:
   - MOLCertificate
 
 SPEC CHECKSUMS:
-  MOLCertificate: c39cae866d24d36fbc78032affff83d401b5384a
+  MOLCertificate: 1998f223393662c52c5e877126e01e7a0b68b889
 
 PODFILE CHECKSUM: 425d4e65a7185ff5e094f3faf4fe9aefb258e5bd
 
