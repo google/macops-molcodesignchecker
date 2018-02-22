@@ -36,7 +36,8 @@
        kSecCSDoNotValidateResources:                         0.032s
        kSecCSDoNotValidateResources | kSecCSCheckNestedCode: 0.033s
 */
-static const SecCSFlags kStaticSigningFlags = kSecCSDoNotValidateResources | kSecCSCheckNestedCode;
+static const SecCSFlags kStaticSigningFlags =
+    kSecCSDoNotValidateResources | kSecCSCheckNestedCode | kSecCSCheckAllArchitectures;
 
 /**
   kSigningFlags are the flags used when validating signatures for running binaries.
