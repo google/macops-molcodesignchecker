@@ -8,11 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0D53CAFE1B715C8900073187 /* libMOLCodesignChecker.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D53CAF21B715C8900073187 /* libMOLCodesignChecker.dylib */; };
-		0D53CB0E1B715CD900073187 /* MOLCodesignChecker.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D53CB0C1B715CD900073187 /* MOLCodesignChecker.h */; };
-		0D53CB0F1B715CD900073187 /* MOLCodesignChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D53CB0D1B715CD900073187 /* MOLCodesignChecker.m */; };
 		1541D84B02B099EE81C402DB /* libPods-MOLCodesignChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C86D09A14F44225DF67CCA7B /* libPods-MOLCodesignChecker.a */; };
-		596DEAF45F5C3B08DA095BA6 /* libPods-MOLCodesignCheckerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D66A83AFF1637FA7A1D451 /* libPods-MOLCodesignCheckerTests.a */; };
 		C7064C321F7D0CA30044A9DB /* MOLCodesignCheckerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D53CB101B715D9700073187 /* MOLCodesignCheckerTest.m */; };
+		C747019B2047351C00895896 /* MOLCodesignChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = C747019A2047351500895896 /* MOLCodesignChecker.m */; };
+		C747019C2047353800895896 /* MOLCodesignChecker.h in Headers */ = {isa = PBXBuildFile; fileRef = C74701992047351500895896 /* MOLCodesignChecker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,14 +27,11 @@
 /* Begin PBXFileReference section */
 		0D53CAF21B715C8900073187 /* libMOLCodesignChecker.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libMOLCodesignChecker.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D53CAFD1B715C8900073187 /* MOLCodesignCheckerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MOLCodesignCheckerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0D53CB031B715C8900073187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0D53CB0C1B715CD900073187 /* MOLCodesignChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOLCodesignChecker.h; sourceTree = "<group>"; };
-		0D53CB0D1B715CD900073187 /* MOLCodesignChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOLCodesignChecker.m; sourceTree = "<group>"; };
 		0D53CB101B715D9700073187 /* MOLCodesignCheckerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOLCodesignCheckerTest.m; sourceTree = "<group>"; };
-		4B04ACF8457A31F8049FECED /* Pods-MOLCodesignCheckerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOLCodesignCheckerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MOLCodesignCheckerTests/Pods-MOLCodesignCheckerTests.release.xcconfig"; sourceTree = "<group>"; };
 		713707D9ACC462A1D5C26ECB /* Pods-MOLCodesignChecker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOLCodesignChecker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MOLCodesignChecker/Pods-MOLCodesignChecker.debug.xcconfig"; sourceTree = "<group>"; };
 		83D66A83AFF1637FA7A1D451 /* libPods-MOLCodesignCheckerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MOLCodesignCheckerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D4C3286EE86C0DDC8AA22DD /* Pods-MOLCodesignCheckerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOLCodesignCheckerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MOLCodesignCheckerTests/Pods-MOLCodesignCheckerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C74701992047351500895896 /* MOLCodesignChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOLCodesignChecker.h; sourceTree = "<group>"; };
+		C747019A2047351500895896 /* MOLCodesignChecker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MOLCodesignChecker.m; sourceTree = "<group>"; };
 		C86D09A14F44225DF67CCA7B /* libPods-MOLCodesignChecker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MOLCodesignChecker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB7C58C125688E8356ACF8D2 /* Pods-MOLCodesignChecker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOLCodesignChecker.release.xcconfig"; path = "Pods/Target Support Files/Pods-MOLCodesignChecker/Pods-MOLCodesignChecker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -54,7 +50,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D53CAFE1B715C8900073187 /* libMOLCodesignChecker.dylib in Frameworks */,
-				596DEAF45F5C3B08DA095BA6 /* libPods-MOLCodesignCheckerTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +59,7 @@
 		0D53CAE91B715C8900073187 = {
 			isa = PBXGroup;
 			children = (
-				0D53CAF41B715C8900073187 /* Source */,
+				C74701972047351500895896 /* Source */,
 				0D53CB011B715C8900073187 /* Tests */,
 				0D53CAF31B715C8900073187 /* Products */,
 				CBB4B25261340F28B4F0DFD2 /* Pods */,
@@ -81,30 +76,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0D53CAF41B715C8900073187 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				0D53CB0C1B715CD900073187 /* MOLCodesignChecker.h */,
-				0D53CB0D1B715CD900073187 /* MOLCodesignChecker.m */,
-			);
-			path = Source;
-			sourceTree = "<group>";
-		};
 		0D53CB011B715C8900073187 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				0D53CB101B715D9700073187 /* MOLCodesignCheckerTest.m */,
-				0D53CB021B715C8900073187 /* Supporting Files */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		0D53CB021B715C8900073187 /* Supporting Files */ = {
+		C74701972047351500895896 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				0D53CB031B715C8900073187 /* Info.plist */,
+				C74701982047351500895896 /* MOLCodesignChecker */,
 			);
-			name = "Supporting Files";
+			path = Source;
+			sourceTree = "<group>";
+		};
+		C74701982047351500895896 /* MOLCodesignChecker */ = {
+			isa = PBXGroup;
+			children = (
+				C74701992047351500895896 /* MOLCodesignChecker.h */,
+				C747019A2047351500895896 /* MOLCodesignChecker.m */,
+			);
+			path = MOLCodesignChecker;
 			sourceTree = "<group>";
 		};
 		CBB4B25261340F28B4F0DFD2 /* Pods */ = {
@@ -112,8 +106,6 @@
 			children = (
 				713707D9ACC462A1D5C26ECB /* Pods-MOLCodesignChecker.debug.xcconfig */,
 				EB7C58C125688E8356ACF8D2 /* Pods-MOLCodesignChecker.release.xcconfig */,
-				8D4C3286EE86C0DDC8AA22DD /* Pods-MOLCodesignCheckerTests.debug.xcconfig */,
-				4B04ACF8457A31F8049FECED /* Pods-MOLCodesignCheckerTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -134,7 +126,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D53CB0E1B715CD900073187 /* MOLCodesignChecker.h in Headers */,
+				C747019C2047353800895896 /* MOLCodesignChecker.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,12 +156,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0D53CB091B715C8900073187 /* Build configuration list for PBXNativeTarget "MOLCodesignCheckerTests" */;
 			buildPhases = (
-				702EC30AC7D084802FEC5F26 /* [CP] Check Pods Manifest.lock */,
 				0D53CAF91B715C8900073187 /* Sources */,
 				0D53CAFA1B715C8900073187 /* Frameworks */,
 				0D53CAFB1B715C8900073187 /* Resources */,
-				113BA328598A84A2EAAF8B8F /* [CP] Embed Pods Frameworks */,
-				A203A483EED103147C45A12D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -227,54 +216,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		113BA328598A84A2EAAF8B8F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MOLCodesignCheckerTests/Pods-MOLCodesignCheckerTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		702EC30AC7D084802FEC5F26 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MOLCodesignCheckerTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A203A483EED103147C45A12D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MOLCodesignCheckerTests/Pods-MOLCodesignCheckerTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B4A6237725C76E4070DA8288 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -315,7 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D53CB0F1B715CD900073187 /* MOLCodesignChecker.m in Sources */,
+				C747019B2047351C00895896 /* MOLCodesignChecker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,7 +398,6 @@
 		};
 		0D53CB0A1B715C8900073187 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8D4C3286EE86C0DDC8AA22DD /* Pods-MOLCodesignCheckerTests.debug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -475,7 +415,6 @@
 		};
 		0D53CB0B1B715C8900073187 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B04ACF8457A31F8049FECED /* Pods-MOLCodesignCheckerTests.release.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (

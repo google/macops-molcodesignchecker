@@ -12,10 +12,9 @@
 ///    See the License for the specific language governing permissions and
 ///    limitations under the License.
 
-#import <MOLCertificate/MOLCertificate.h>
 #import <XCTest/XCTest.h>
 
-#import "MOLCodesignChecker.h"
+#import <MOLCodesignChecker/MOLCodesignChecker.h>
 
 /**
   Tests for `MOLCodesignChecker`

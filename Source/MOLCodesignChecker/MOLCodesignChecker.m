@@ -14,8 +14,9 @@
 
 #import "MOLCodesignChecker.h"
 
-#import <MOLCertificate/MOLCertificate.h>
 #import <Security/Security.h>
+
+#import <MOLCertificate/MOLCertificate.h>
 
 /**
   kStaticSigningFlags are the flags used when validating signatures on disk.
