@@ -16,6 +16,9 @@
 
 #import <Security/Security.h>
 
+#include <mach-o/arch.h>
+#include <mach-o/fat.h>
+
 #import <MOLCertificate/MOLCertificate.h>
 
 /**
@@ -47,13 +50,17 @@ static const SecCSFlags kStaticSigningFlags =
 */
 static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
 
-@interface MOLCodesignChecker ()
-/// Array of `MOLCertificate's` representing the chain of certs the represented
-/// executable was signed with.
-@property NSMutableArray *certificates;
+static NSString *const kErrorDomain = @"com.google.molcodesignchecker";
 
+@interface MOLCodesignChecker ()
 /// Cached designated requirement
 @property SecRequirementRef requirement;
+
+// Cached on-disk binary path
+@property NSString *binaryPath;
+
+// Cached on-disk binary file descriptor
+@property int binaryFileDescriptor;
 @end
 
 @implementation MOLCodesignChecker
@@ -70,29 +77,37 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
     // First check the signing is valid.
     if (CFGetTypeID(codeRef) == SecStaticCodeGetTypeID()) {
       status = SecStaticCodeCheckValidityWithErrors(codeRef, kStaticSigningFlags, NULL, &cfError);
+      // Ensure signing is consistent for all architectures.
+      // Any issues found here take precedence over already found issues.
+      if (!_binaryPath) _binaryPath = [self binaryPathForCodeRef:self.codeRef];
+      NSArray *infos = [self universalSigningInformationForBinaryPath:_binaryPath
+                                                       fileDescriptor:_binaryFileDescriptor];
+      if (infos) _universalSigningInformation = infos;
+      if (infos && ![self allSigningInformationMatches:infos]) {
+        status = errSecCSSignatureInvalid;
+        NSString *description = @"Signing is not consistent for all architectures.";
+        cfError = (__bridge_retained CFErrorRef)[self errorWithCode:status description:description];
+      }
     } else if (CFGetTypeID(codeRef) == SecCodeGetTypeID()) {
       status = SecCodeCheckValidityWithErrors((SecCodeRef)codeRef, kSigningFlags, NULL, &cfError);
     }
 
-    if (status != errSecSuccess) {
-      if (error) {
-        *error = CFBridgingRelease(cfError);
-      }
+    // Do not set _signingInformation or _certificates for universal binaries with signing issues.
+    NSError *err = CFBridgingRelease(cfError);
+    if (!([err.domain isEqualToString:kErrorDomain] && status == errSecCSSignatureInvalid)) {
+      // Get CFDictionary of signing information for binary
+      CFDictionaryRef signingDict = NULL;
+      SecCodeCopySigningInformation(codeRef, kSecCSSigningInformation, &signingDict);
+      _signingInformation = CFBridgingRelease(signingDict);
+
+      // Get array of certificates.
+      NSArray *certs = _signingInformation[(__bridge id)kSecCodeInfoCertificates];
+      _certificates = [MOLCertificate certificatesFromArray:certs];
     }
-
-    // Get CFDictionary of signing information for binary
-    CFDictionaryRef signingDict = NULL;
-    status = SecCodeCopySigningInformation(codeRef, kSecCSSigningInformation, &signingDict);
-    _signingInformation = CFBridgingRelease(signingDict);
-
-    // Get array of certificates.
-    NSArray *certs = _signingInformation[(__bridge id)kSecCodeInfoCertificates];
-    _certificates = [[MOLCertificate certificatesFromArray:certs] mutableCopy];
-
+    if (status != errSecSuccess) if (error) *error = err;
     _codeRef = codeRef;
     CFRetain(_codeRef);
   }
-
   return self;
 }
 
@@ -103,6 +118,18 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
 }
 
 - (instancetype)initWithBinaryPath:(NSString *)binaryPath error:(NSError **)error {
+  return [self initWithBinaryPath:binaryPath fileDescriptor:-1 error:error];
+}
+
+- (instancetype)initWithBinaryPath:(NSString *)binaryPath {
+  NSError *error;
+  self = [self initWithBinaryPath:binaryPath error:&error];
+  return (error) ? nil : self;
+}
+
+- (instancetype)initWithBinaryPath:(NSString *)binaryPath
+                    fileDescriptor:(int)fileDescriptor
+                             error:(NSError **)error {
   OSStatus status = errSecSuccess;
   SecStaticCodeRef codeRef = NULL;
 
@@ -116,14 +143,17 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
     return nil;
   }
 
+  _binaryPath = binaryPath;
+  _binaryFileDescriptor = (fileDescriptor != -1) ? fileDescriptor : -1;
+
   self = [self initWithSecStaticCodeRef:codeRef error:error];
   if (codeRef) CFRelease(codeRef);  // it was retained above
   return self;
 }
 
-- (instancetype)initWithBinaryPath:(NSString *)binaryPath {
+- (instancetype)initWithBinaryPath:(NSString *)binaryPath fileDescriptor:(int)fileDescriptor {
   NSError *error;
-  self = [self initWithBinaryPath:binaryPath error:&error];
+  self = [self initWithBinaryPath:binaryPath fileDescriptor:fileDescriptor error:&error];
   return (error) ? nil : self;
 }
 
@@ -218,8 +248,13 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
 }
 
 - (NSString *)binaryPath {
+  if (!_binaryPath) _binaryPath = [self binaryPathForCodeRef:self.codeRef];
+  return _binaryPath;
+}
+
+- (NSString *)binaryPathForCodeRef:(SecStaticCodeRef)codeRef {
   CFURLRef path;
-  OSStatus status = SecCodeCopyPath(self.codeRef, kSecCSDefaultFlags, &path);
+  OSStatus status = SecCodeCopyPath(codeRef, kSecCSDefaultFlags, &path);
   NSURL *pathURL = CFBridgingRelease(path);
   if (status != errSecSuccess) return nil;
   return [pathURL path];
@@ -241,15 +276,130 @@ static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
 
 #pragma mark Private
 
+- (NSError *)errorWithCode:(OSStatus)code description:(NSString *)description {
+  if (!description) {
+    CFStringRef cfErrorString = SecCopyErrorMessageString(code, NULL);
+    description = CFBridgingRelease(cfErrorString);
+  }
+
+  NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: description ?: @"" };
+  return [NSError errorWithDomain:kErrorDomain code:code userInfo:userInfo];
+}
+
 - (NSError *)errorWithCode:(OSStatus)code {
-  CFStringRef cfErrorString = SecCopyErrorMessageString(code, NULL);
-  NSString *errorStr = CFBridgingRelease(cfErrorString);
+  return [self errorWithCode:code description:nil];
+}
 
-  NSDictionary *userInfo = @{
-    NSLocalizedDescriptionKey: errorStr
-  };
+- (BOOL)allSigningInformationMatches:(NSArray *)signingInformation {
+  NSMutableSet *chains = [NSMutableSet set];
+  for (NSDictionary *arch in signingInformation) {
+    NSDictionary *info = arch.allValues.firstObject;
+    int flags = [info[(__bridge id)kSecCodeInfoFlags] intValue];
+    if (flags & kSecCodeSignatureAdhoc) {
+      [chains addObject:@"-"];
+    } else {
+      NSArray *certs = info[(__bridge id)kSecCodeInfoCertificates];
+      [chains addObject:[MOLCertificate certificatesFromArray:certs]];
+    }
+    if (chains.count > 1) return NO;
+  }
+  return YES;
+}
 
-  return [NSError errorWithDomain:@"com.google.molcodesignchecker" code:code userInfo:userInfo];
+- (NSArray *)universalSigningInformationForBinaryPath:(NSString *)path fileDescriptor:(int)fd {
+  NSDictionary *offsets;
+  if (fd == -1) {
+    offsets = [self architectureAndOffsetsForUniversalBinaryPath:path];
+  } else {
+    offsets = [self architectureAndOffsetsForFileDescriptor:fd];
+  }
+
+  if (!offsets) return nil;
+  NSMutableArray *infos = [NSMutableArray arrayWithCapacity:offsets.count];
+  for (NSString *arch in offsets) {
+    NSDictionary *attributes = @{
+      (__bridge NSString *)kSecCodeAttributeUniversalFileOffset : offsets[arch]
+    };
+    SecStaticCodeRef codeRef = NULL;
+    SecStaticCodeCreateWithPathAndAttributes((__bridge CFURLRef)[NSURL fileURLWithPath:path],
+                                             kSecCSDefaultFlags,
+                                             (__bridge CFDictionaryRef)attributes,
+                                             &codeRef);
+    CFDictionaryRef signingDict = NULL;
+    SecCodeCopySigningInformation(codeRef, kSecCSSigningInformation, &signingDict);
+    [infos addObject:@{ arch : CFBridgingRelease(signingDict) ?: @{} }];
+    if (codeRef) CFRelease(codeRef);
+  }
+  return infos.count ? infos : nil;
+}
+
+- (NSString *)architectureString:(struct fat_arch *)fatArch bigEndian:(BOOL)bigEndian {
+  cpu_type_t cpu = bigEndian ? OSSwapBigToHostInt(fatArch->cputype) : fatArch->cputype;
+  cpu_subtype_t cpuSub = bigEndian ? OSSwapBigToHostInt(fatArch->cpusubtype) : fatArch->cpusubtype;
+  const NXArchInfo *archInfo = NXGetArchInfoFromCpuType(cpu, cpuSub);
+  NSString *arch;
+  if (archInfo && archInfo->name) {
+    arch = @(archInfo->name);
+  } else {
+    arch = [NSString stringWithFormat:@"%i:%i", cpu, cpuSub];
+  }
+  return arch;
+}
+
+- (NSDictionary *)architectureAndOffsetsForFileDescriptor:(int)fd {
+  size_t len = sizeof(struct fat_header);
+  const uint8 headerBytes[len];
+  lseek(fd, 0, SEEK_SET);
+  if (read(fd, (void *)headerBytes, len) != len) return nil;
+  struct fat_header *fh = (struct fat_header *)headerBytes;
+  uint32_t m = fh->magic;
+  if (!(m == FAT_MAGIC || m == FAT_CIGAM || m == FAT_MAGIC_64 || m == FAT_CIGAM_64)) return nil;
+
+  BOOL bigEndian = (m == FAT_CIGAM || m == FAT_CIGAM_64);
+  BOOL use64 = (m == FAT_MAGIC_64 || m == FAT_CIGAM_64);
+
+  int archCount = bigEndian ? OSSwapBigToHostInt32(fh->nfat_arch) : fh->nfat_arch;
+  if (archCount < 1 || archCount > 128) return nil; // Upper bound of 4k
+
+  len = use64 ? sizeof(struct fat_arch_64) * archCount : sizeof(struct fat_arch) * archCount;
+  const uint8 archBytes[len];
+  if (read(fd, (void *)archBytes, len) != len) return nil;
+
+  NSMutableDictionary *offsets = [NSMutableDictionary dictionaryWithCapacity:archCount];
+  if (use64) {
+    struct fat_arch_64 *fat_arch = (struct fat_arch_64 *)archBytes;
+    for (int i = 0; i < archCount; ++i) {
+      uint64_t offset = bigEndian ? OSSwapBigToHostInt64(fat_arch[i].offset) : fat_arch[i].offset;
+      // Passing an offset of 0 to SecStaticCodeCreateWithPathAndAttributes() will create a code ref
+      // for the whole universal binary.
+      if (offset > 0) {
+        NSString *arch = [self architectureString:(struct fat_arch *)&fat_arch[i]
+                                        bigEndian:bigEndian];
+        offsets[arch] = @(offset);
+      }
+    }
+  } else {
+    struct fat_arch *fat_arch = (struct fat_arch *)archBytes;
+    for (int i = 0; i < archCount; ++i) {
+      uint32_t offset = bigEndian ? OSSwapBigToHostInt32(fat_arch[i].offset) : fat_arch[i].offset;
+      // Passing an offset of 0 to SecStaticCodeCreateWithPathAndAttributes() will create a code ref
+      // for the whole universal binary.
+      if (offset > 0) {
+        NSString *arch = [self architectureString:&fat_arch[i] bigEndian:bigEndian];
+        offsets[arch] = @(offset);
+      }
+    }
+  }
+
+  return offsets.count ? offsets : nil;
+}
+
+- (NSDictionary *)architectureAndOffsetsForUniversalBinaryPath:(NSString *)path {
+  int fd = open(path.UTF8String, O_RDONLY | O_CLOEXEC);
+  if (fd == -1) return nil;
+  NSDictionary *offsets = [self architectureAndOffsetsForFileDescriptor:fd];
+  close(fd);
+  return offsets;
 }
 
 @end

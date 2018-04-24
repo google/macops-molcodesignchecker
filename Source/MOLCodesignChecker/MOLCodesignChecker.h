@@ -42,6 +42,13 @@
 @property(readonly) NSDictionary *signingInformation;
 
 /**
+  An array of dictionaries. Each dictionary contains a single architecture string as a key and
+  a dictionary of raw signing information as the value.
+  Available for universal/FAT binaries only.
+*/
+@property(readonly) NSArray *universalSigningInformation;
+
+/**
   An array of `MOLCertificate` objects representing the chain that signed this binary.
 
   @see [MOLCertificate](http://cocoadocs.org/docsets/MOLCertificate)
@@ -79,7 +86,7 @@
 
   @param codeRef A `SecStaticCodeRef` or `SecCodeRef` representing a binary.
   @return An initialized `MOLCodesignChecker` or nil if validation failed.
- */
+*/
 - (instancetype)initWithSecStaticCodeRef:(SecStaticCodeRef)codeRef;
 
 /**
@@ -102,8 +109,23 @@
 
   @param binaryPath Path to a binary file on disk.
   @return An initialized `MOLCodesignChecker` or nil if validation failed.
- */
+*/
 - (instancetype)initWithBinaryPath:(NSString *)binaryPath;
+
+/**
+  Wrapper around initWithBinaryPath:error: that takes a file descriptor for reading.
+  The file descriptor will be used to read binary header infomation. This provides a minor
+  performace increase if the caller already has the file open.
+
+  @note The file offset will be set to the amount of bytes read while parsing the header.
+*/
+- (instancetype)initWithBinaryPath:(NSString *)binaryPath
+                    fileDescriptor:(int)fileDescriptor
+                             error:(NSError **)error;
+/**
+  Wrapper around initWithBinaryPath:fileDescriptor:error:.
+*/
+- (instancetype)initWithBinaryPath:(NSString *)binaryPath fileDescriptor:(int)fileDescriptor;
 
 /**
   Initialize with a running binary using its process ID.
