@@ -14,6 +14,8 @@
 
 #import <XCTest/XCTest.h>
 
+#include <mach-o/fat.h>
+
 #import <MOLCodesignChecker/MOLCodesignChecker.h>
 
 /**
@@ -116,6 +118,63 @@
   MOLCodesignChecker *sut2 = [[MOLCodesignChecker alloc] initWithSelf];
 
   XCTAssertFalse([sut1 validateWithRequirement:sut2.requirement]);
+}
+
+- (void)testInitWithFileDescriptor {
+  NSString *path = @"/usr/bin/yes";
+  int fd = open(path.UTF8String, O_RDONLY | O_CLOEXEC);
+  MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path fileDescriptor:fd];
+  XCTAssertNotNil(sut.signingInformation);
+  XCTAssertEqual(lseek(fd, 0, SEEK_CUR), sizeof(struct fat_header));
+  close(fd);
+}
+
+- (void)testAllArchitectures {
+  NSError *error;
+  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+  NSString *path = [bundle pathForResource:@"cal-yikes-universal" ofType:@""];
+  MOLCodesignChecker *sut =
+      [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
+  XCTAssertNotNil(sut.universalSigningInformation);
+  XCTAssertNil(sut.leafCertificate);
+  XCTAssertEqual(error.code, errSecCSSignatureInvalid);
+
+  error = nil;
+  path = [bundle pathForResource:@"cal-yikes-universal_adhoc" ofType:@""];
+  sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
+  XCTAssertNotNil(sut.universalSigningInformation);
+  XCTAssertNil(sut.leafCertificate);
+  XCTAssertEqual(error.code, errSecCSSignatureInvalid);
+  XCTAssertFalse(sut.signatureFlags & kSecCodeSignatureAdhoc);
+
+  error = nil;
+  path = [bundle pathForResource:@"cal-yikes-universal_signed" ofType:@""];
+  sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
+  XCTAssertNotNil(sut.universalSigningInformation);
+  XCTAssertNil(sut.leafCertificate);
+  XCTAssertEqual(error.code, errSecCSSignatureInvalid);
+
+  error = nil;
+  path = [bundle pathForResource:@"yikes-universal" ofType:@""];
+  sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
+  XCTAssertNotNil(sut.universalSigningInformation);
+  XCTAssertNil(sut.leafCertificate);
+  XCTAssertEqual(error.code, errSecCSUnsigned);
+
+  error = nil;
+  path = [bundle pathForResource:@"yikes-universal_adhoc" ofType:@""];
+  sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
+  XCTAssertNotNil(sut.universalSigningInformation);
+  XCTAssertNil(sut.leafCertificate);
+  XCTAssertNil(error);
+  XCTAssertTrue(sut.signatureFlags & kSecCodeSignatureAdhoc);
+
+  error = nil;
+  path = [bundle pathForResource:@"yikes-universal_signed" ofType:@""];
+  sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
+  XCTAssertNotNil(sut.universalSigningInformation);
+  XCTAssertNotNil(sut.leafCertificate);
+  XCTAssertNil(error);
 }
 
 @end

@@ -10,6 +10,12 @@
 		0D53CAFE1B715C8900073187 /* libMOLCodesignChecker.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D53CAF21B715C8900073187 /* libMOLCodesignChecker.dylib */; };
 		1541D84B02B099EE81C402DB /* libPods-MOLCodesignChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C86D09A14F44225DF67CCA7B /* libPods-MOLCodesignChecker.a */; };
 		C7064C321F7D0CA30044A9DB /* MOLCodesignCheckerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D53CB101B715D9700073187 /* MOLCodesignCheckerTest.m */; };
+		C73D3A04207E574E00913FFB /* yikes-universal_signed in Resources */ = {isa = PBXBuildFile; fileRef = C73D3A00207E574E00913FFB /* yikes-universal_signed */; };
+		C73D3A05207E574E00913FFB /* yikes-universal_adhoc in Resources */ = {isa = PBXBuildFile; fileRef = C73D3A01207E574E00913FFB /* yikes-universal_adhoc */; };
+		C73D3A06207E574E00913FFB /* cal-yikes-universal_adhoc in Resources */ = {isa = PBXBuildFile; fileRef = C73D3A02207E574E00913FFB /* cal-yikes-universal_adhoc */; };
+		C73D3A07207E574E00913FFB /* yikes-universal in Resources */ = {isa = PBXBuildFile; fileRef = C73D3A03207E574E00913FFB /* yikes-universal */; };
+		C73D3A09207E638900913FFB /* cal-yikes-universal_signed in Resources */ = {isa = PBXBuildFile; fileRef = C73D3A08207E638900913FFB /* cal-yikes-universal_signed */; };
+		C73D3A0D207E687E00913FFB /* cal-yikes-universal in Resources */ = {isa = PBXBuildFile; fileRef = C73D3A0C207E687E00913FFB /* cal-yikes-universal */; };
 		C747019B2047351C00895896 /* MOLCodesignChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = C747019A2047351500895896 /* MOLCodesignChecker.m */; };
 		C747019C2047353800895896 /* MOLCodesignChecker.h in Headers */ = {isa = PBXBuildFile; fileRef = C74701992047351500895896 /* MOLCodesignChecker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -30,6 +36,12 @@
 		0D53CB101B715D9700073187 /* MOLCodesignCheckerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOLCodesignCheckerTest.m; sourceTree = "<group>"; };
 		713707D9ACC462A1D5C26ECB /* Pods-MOLCodesignChecker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOLCodesignChecker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MOLCodesignChecker/Pods-MOLCodesignChecker.debug.xcconfig"; sourceTree = "<group>"; };
 		83D66A83AFF1637FA7A1D451 /* libPods-MOLCodesignCheckerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MOLCodesignCheckerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C73D3A00207E574E00913FFB /* yikes-universal_signed */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "yikes-universal_signed"; sourceTree = "<group>"; };
+		C73D3A01207E574E00913FFB /* yikes-universal_adhoc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "yikes-universal_adhoc"; sourceTree = "<group>"; };
+		C73D3A02207E574E00913FFB /* cal-yikes-universal_adhoc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "cal-yikes-universal_adhoc"; sourceTree = "<group>"; };
+		C73D3A03207E574E00913FFB /* yikes-universal */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "yikes-universal"; sourceTree = "<group>"; };
+		C73D3A08207E638900913FFB /* cal-yikes-universal_signed */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "cal-yikes-universal_signed"; sourceTree = "<group>"; };
+		C73D3A0C207E687E00913FFB /* cal-yikes-universal */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "cal-yikes-universal"; sourceTree = "<group>"; };
 		C74701992047351500895896 /* MOLCodesignChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOLCodesignChecker.h; sourceTree = "<group>"; };
 		C747019A2047351500895896 /* MOLCodesignChecker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MOLCodesignChecker.m; sourceTree = "<group>"; };
 		C86D09A14F44225DF67CCA7B /* libPods-MOLCodesignChecker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MOLCodesignChecker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,9 +91,23 @@
 		0D53CB011B715C8900073187 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C73D39FF207E574E00913FFB /* Resources */,
 				0D53CB101B715D9700073187 /* MOLCodesignCheckerTest.m */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		C73D39FF207E574E00913FFB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C73D3A0C207E687E00913FFB /* cal-yikes-universal */,
+				C73D3A02207E574E00913FFB /* cal-yikes-universal_adhoc */,
+				C73D3A08207E638900913FFB /* cal-yikes-universal_signed */,
+				C73D3A03207E574E00913FFB /* yikes-universal */,
+				C73D3A01207E574E00913FFB /* yikes-universal_adhoc */,
+				C73D3A00207E574E00913FFB /* yikes-universal_signed */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		C74701972047351500895896 /* Source */ = {
@@ -210,6 +236,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C73D3A05207E574E00913FFB /* yikes-universal_adhoc in Resources */,
+				C73D3A04207E574E00913FFB /* yikes-universal_signed in Resources */,
+				C73D3A07207E574E00913FFB /* yikes-universal in Resources */,
+				C73D3A09207E638900913FFB /* cal-yikes-universal_signed in Resources */,
+				C73D3A06207E574E00913FFB /* cal-yikes-universal_adhoc in Resources */,
+				C73D3A0D207E687E00913FFB /* cal-yikes-universal in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
