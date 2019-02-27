@@ -46,9 +46,11 @@ static const SecCSFlags kStaticSigningFlags =
 /**
   kSigningFlags are the flags used when validating signatures for running binaries.
 
-  No special flags needed currently.
+  We want to make sure no network access occurs as a result of us checking,
+  for performance. This potentially means accepting revoked certs for a short
+  period but this is an acceptable trade-off.
 */
-static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
+static const SecCSFlags kSigningFlags = kSecCSNoNetworkAccess;
 
 static NSString *const kErrorDomain = @"com.google.molcodesignchecker";
 

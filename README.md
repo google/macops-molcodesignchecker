@@ -56,7 +56,7 @@ git_repository(
 git_repository(
     name = "MOLCodesignChecker",
     remote = "https://github.com/google/macops-molcodesignchecker.git",
-    tag = "v2.0",
+    tag = "v2.1",
 )
 ```
 
