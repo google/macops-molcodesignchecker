@@ -29,6 +29,10 @@
   these will not be considered invalid. To ensure any code inside the binary is still checked,
   we check nested code.
 
+  We also want to make sure no network access occurs as a result of us checking,
+  for performance. This potentially means accepting revoked certs for a short
+  period but this is an acceptable trade-off.
+
   Timings with different flags:
     Checking Xcode 5.1.1 bundle:
        kSecCSDefaultFlags:                                   3.895s
@@ -41,16 +45,15 @@
        kSecCSDoNotValidateResources | kSecCSCheckNestedCode: 0.033s
 */
 static const SecCSFlags kStaticSigningFlags =
-    kSecCSDoNotValidateResources | kSecCSCheckNestedCode | kSecCSCheckAllArchitectures;
+    (kSecCSDoNotValidateResources | kSecCSCheckNestedCode |
+     kSecCSCheckAllArchitectures | kSecCSNoNetworkAccess);
 
 /**
   kSigningFlags are the flags used when validating signatures for running binaries.
 
-  We want to make sure no network access occurs as a result of us checking,
-  for performance. This potentially means accepting revoked certs for a short
-  period but this is an acceptable trade-off.
+  No special flags needed currently.
 */
-static const SecCSFlags kSigningFlags = kSecCSNoNetworkAccess;
+static const SecCSFlags kSigningFlags = kSecCSDefaultFlags;
 
 static NSString *const kErrorDomain = @"com.google.molcodesignchecker";
 
