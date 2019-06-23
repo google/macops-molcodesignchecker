@@ -6,14 +6,14 @@ objc_library(
     hdrs = ["Source/MOLCodesignChecker/MOLCodesignChecker.h"],
     includes = ["Source"],
     sdk_frameworks = ["Security"],
-    deps = ["@MOLCertificate//:MOLCertificate"],
     visibility = ["//visibility:public"],
+    deps = ["@MOLCertificate//:MOLCertificate"],
 )
 
 objc_library(
     name = "MOLCodesignCheckerTestsLib",
     srcs = ["Tests/MOLCodesignCheckerTest.m"],
-    resources = glob(["Tests/Resources/*"]),
+    data = glob(["Tests/Resources/*"]),
     deps = [":MOLCodesignChecker"],
 )
 
@@ -22,4 +22,3 @@ macos_unit_test(
     minimum_os_version = "10.9",
     deps = [":MOLCodesignCheckerTestsLib"],
 )
-
