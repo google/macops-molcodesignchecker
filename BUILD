@@ -13,12 +13,12 @@ objc_library(
 objc_library(
     name = "MOLCodesignCheckerTestsLib",
     srcs = ["Tests/MOLCodesignCheckerTest.m"],
-    data = glob(["Tests/Resources/*"]),
     deps = [":MOLCodesignChecker"],
 )
 
 macos_unit_test(
     name = "MOLCodesignCheckerTests",
     minimum_os_version = "10.9",
+    resources = glob(["Tests/Resources/*"]),
     deps = [":MOLCodesignCheckerTestsLib"],
 )

@@ -50,13 +50,13 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 git_repository(
     name = "MOLCertificate",
     remote = "https://github.com/google/macops-molcertificate.git",
-    tag = "v2.0",
+    tag = "v2.1",
 )
 
 git_repository(
     name = "MOLCodesignChecker",
     remote = "https://github.com/google/macops-molcodesignchecker.git",
-    tag = "v2.1",
+    tag = "v2.2",
 )
 ```
 

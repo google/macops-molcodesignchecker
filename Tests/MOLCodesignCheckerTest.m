@@ -133,8 +133,7 @@
   NSError *error;
   NSBundle *bundle = [NSBundle bundleForClass:[self class]];
   NSString *path = [bundle pathForResource:@"cal-yikes-universal" ofType:@""];
-  MOLCodesignChecker *sut =
-      [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
+  MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
   XCTAssertNotNil(sut.universalSigningInformation);
   XCTAssertNil(sut.leafCertificate);
   XCTAssertEqual(error.code, errSecCSSignatureInvalid);
@@ -175,6 +174,19 @@
   XCTAssertNotNil(sut.universalSigningInformation);
   XCTAssertNotNil(sut.leafCertificate);
   XCTAssertNil(error);
+}
+
+- (void)testTeamID {
+  NSError *error;
+  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+  NSString *path = [bundle pathForResource:@"signed-with-teamid" ofType:@""];
+
+  MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
+  XCTAssertNotNil(sut.signingInformation);
+  XCTAssertNil(error);
+
+  NSString *gotTeamID = [sut.signingInformation valueForKey:@"teamid"];
+  XCTAssertEqualObjects(@"EQHXZ8M8AV", gotTeamID);
 }
 
 @end
