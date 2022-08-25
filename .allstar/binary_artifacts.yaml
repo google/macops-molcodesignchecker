@@ -1,0 +1,9 @@
+# Ignore reason: These crafted binaries are used in tests
+ignorePaths:
+- Tests/Resources/cal-yikes-universal
+- Tests/Resources/cal-yikes-universal_adhoc
+- Tests/Resources/cal-yikes-universal_signed
+- Tests/Resources/signed-with-teamid
+- Tests/Resources/yikes-universal
+- Tests/Resources/yikes-universal_adhoc
+- Tests/Resources/yikes-universal_signed
