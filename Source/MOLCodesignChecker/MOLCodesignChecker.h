@@ -68,6 +68,21 @@
 /** Code signature flags. */
 @property(readonly, nonatomic) uint32_t signatureFlags;
 
+/** The CDHash for this binary, if properly signed. */
+@property(readonly) NSString *cdhash;
+
+/** The Team ID from the certificate that signed this binary. */
+@property(readonly) NSString *teamID;
+
+/** The developer provided signing ID for this binary. */
+@property(readonly) NSString *signingID;
+
+/** Whether or not this binary is considered a platform binary (i.e. part of the OS) */
+@property(readonly) BOOL platformBinary;
+
+/** The entitlements encoded in this binary. */
+@property(readonly) NSDictionary *entitlements;
+
 /**
   Designated initializer
 

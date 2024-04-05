@@ -31,27 +31,12 @@ Provides an easy way to do code signature validation in Objective-C
 
 ## Installation
 
-#### Using CocoaPods
-
-Add the following line to your Podfile:
-
-```
-pod 'MOLCodesignChecker'
-```
-
 #### Using [Bazel](http://bazel.build)
 
 Add the following to your WORKSPACE:
 
 ```
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-
-# Needed for MOLCodesignChecker
-git_repository(
-    name = "MOLCertificate",
-    remote = "https://github.com/google/macops-molcertificate.git",
-    tag = "v2.1",
-)
 
 git_repository(
     name = "MOLCodesignChecker",
@@ -69,12 +54,6 @@ objc_library(
     <strong>deps = ["@MOLCodesignChecker//:MOLCodesignChecker"],</strong>
 )
 </pre>
-
-## Documentation
-
-Reference documentation is at CocoaDocs.org:
-
-http://cocoadocs.org/docsets/MOLCodesignChecker
 
 ## Contributing
 

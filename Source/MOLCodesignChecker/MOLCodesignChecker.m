@@ -269,6 +269,35 @@ static NSString *const kErrorDomain = @"com.google.molcodesignchecker";
   return [self.signingInformation[(__bridge id)kSecCodeInfoFlags] intValue];
 }
 
+- (NSString *)cdhash {
+  NSData *d = (NSData *)self.signingInformation[(__bridge id)kSecCodeInfoUnique];
+  const unsigned char *buf = d.bytes;
+
+  NSMutableString *s = [NSMutableString stringWithCapacity:d.length * 2];
+  for (int i = 0; i < d.length; ++i) {
+    [s appendFormat:@"%02x", buf[i]];
+  }
+  return s;
+}
+
+- (NSString *)teamID {
+  return self.signingInformation[(__bridge id)kSecCodeInfoTeamIdentifier];
+}
+
+- (NSString *)signingID {
+  return self.signingInformation[(__bridge id)kSecCodeInfoIdentifier];
+}
+
+- (BOOL)platformBinary {
+  id p = self.signingInformation[(__bridge id)kSecCodeInfoPlatformIdentifier];
+  if (![p isKindOfClass:[NSNumber class]] || [p intValue] == 0) return NO;
+  return YES;
+}
+
+- (NSDictionary *)entitlements {
+  return self.signingInformation[(__bridge NSString *)kSecCodeInfoEntitlementsDict];
+}
+
 - (BOOL)signingInformationMatches:(MOLCodesignChecker *)otherChecker {
   return [self.certificates isEqual:otherChecker.certificates];
 }
