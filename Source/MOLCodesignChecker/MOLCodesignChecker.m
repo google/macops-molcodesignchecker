@@ -382,7 +382,7 @@ static NSString *const kErrorDomain = @"com.google.molcodesignchecker";
 
 - (NSDictionary *)architectureAndOffsetsForFileDescriptor:(int)fd {
   size_t len = sizeof(struct fat_header);
-  const uint8 headerBytes[len];
+  const uint8 *headerBytes = (const uint8 *)alloca(len);
   lseek(fd, 0, SEEK_SET);
   if (read(fd, (void *)headerBytes, len) != len) return nil;
   struct fat_header *fh = (struct fat_header *)headerBytes;
@@ -396,7 +396,7 @@ static NSString *const kErrorDomain = @"com.google.molcodesignchecker";
   if (archCount < 1 || archCount > 128) return nil; // Upper bound of 4k
 
   len = use64 ? sizeof(struct fat_arch_64) * archCount : sizeof(struct fat_arch) * archCount;
-  const uint8 archBytes[len];
+  const uint8 *archBytes = (const uint8 *)alloca(len);
   if (read(fd, (void *)archBytes, len) != len) return nil;
 
   NSMutableDictionary *offsets = [NSMutableDictionary dictionaryWithCapacity:archCount];

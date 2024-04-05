@@ -29,7 +29,7 @@ objc_library(
 
 macos_unit_test(
     name = "MOLCodesignCheckerTests",
-    minimum_os_version = "10.9",
+    minimum_os_version = "10.13",
     resources = glob(["Tests/Resources/*"]),
     deps = [":MOLCodesignCheckerTestsLib"],
 )
