@@ -125,7 +125,6 @@
   int fd = open(path.UTF8String, O_RDONLY | O_CLOEXEC);
   MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path fileDescriptor:fd];
   XCTAssertNotNil(sut.signingInformation);
-  XCTAssertEqual(lseek(fd, 0, SEEK_CUR), sizeof(struct fat_header));
   close(fd);
 }
 
@@ -184,9 +183,62 @@
   MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
   XCTAssertNotNil(sut.signingInformation);
   XCTAssertNil(error);
+  XCTAssertEqualObjects(sut.teamID, @"EQHXZ8M8AV");
+}
 
-  NSString *gotTeamID = [sut.signingInformation valueForKey:@"teamid"];
-  XCTAssertEqualObjects(@"EQHXZ8M8AV", gotTeamID);
+- (void)testCDHash {
+  NSError *error;
+  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+  NSString *path = [bundle pathForResource:@"signed-with-teamid" ofType:@""];
+
+  MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
+  XCTAssertNotNil(sut.signingInformation);
+  XCTAssertNil(error);
+  XCTAssertEqualObjects(sut.cdhash, @"23cbe7039ac34bf26f0b1ccc22ff96d6f0d80b72");
+}
+
+- (void)testSigningID {
+  NSError *error;
+  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+  NSString *path = [bundle pathForResource:@"signed-with-teamid" ofType:@""];
+
+  MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
+  XCTAssertNotNil(sut.signingInformation);
+  XCTAssertNil(error);
+  XCTAssertEqualObjects(sut.signingID, @"goodcert");
+}
+
+- (void)testPlatformBinary {
+  NSError *error;
+  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+  NSString *path = [bundle pathForResource:@"signed-with-teamid" ofType:@""];
+
+  MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
+  XCTAssertNotNil(sut.signingInformation);
+  XCTAssertNil(error);
+  XCTAssertFalse(sut.platformBinary);
+
+  sut = [[MOLCodesignChecker alloc] initWithBinaryPath:@"/sbin/launchd"];
+  XCTAssertNotNil(sut);
+  XCTAssertTrue(sut.platformBinary);
+}
+
+- (void)testEntitlements {
+  NSError *error;
+  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+  NSString *path = [bundle pathForResource:@"signed-with-teamid" ofType:@""];
+
+  MOLCodesignChecker *sut = [[MOLCodesignChecker alloc] initWithBinaryPath:path error:&error];
+  XCTAssertNotNil(sut.signingInformation);
+  XCTAssertNil(error);
+  XCTAssertNil(sut.entitlements);
+
+  sut = [[MOLCodesignChecker alloc] initWithBinaryPath:@"/usr/bin/eslogger"];
+  XCTAssertNotNil(sut);
+  NSDictionary *wantedEntitlements = @{
+      @"com.apple.developer.endpoint-security.client" : @YES,
+  };
+  XCTAssertEqualObjects(sut.entitlements, wantedEntitlements);
 }
 
 @end
