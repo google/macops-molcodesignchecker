@@ -20,6 +20,7 @@ objc_library(
 objc_library(
     name = "MOLCodesignCheckerTestsLib",
     srcs = ["Tests/MOLCodesignCheckerTest.m"],
+    testonly = 1,
     sdk_frameworks = [
         "Foundation",
         "XCTest"
