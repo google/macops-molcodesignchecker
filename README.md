@@ -31,7 +31,20 @@ Provides an easy way to do code signature validation in Objective-C
 
 ## Installation
 
-#### Using [Bazel](http://bazel.build)
+#### Using [Bazel](http://bazel.build) Modules
+
+Add the following to your MODULE.bazel:
+
+```bazel
+bazel_dep("molcodesignchecker", version = "3.0")
+git_override(
+    module_name = "molcodesignchecker",
+    remote = "https://github.com/google/macops-molcodesignchecker.git",
+    tag = "v3.0",
+)
+```
+
+#### Using [Bazel](http://bazel.build) WORKSPACE
 
 Add the following to your WORKSPACE:
 
@@ -41,17 +54,19 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 git_repository(
     name = "MOLCodesignChecker",
     remote = "https://github.com/google/macops-molcodesignchecker.git",
-    tag = "v2.2",
+    tag = "v3.0",
 )
 ```
 
-And in your BUILD file, add MOLCodesignChecker as a dependency:
+### Adding dependency in BUILD
+
+In your BUILD file, add MOLCodesignChecker as a dependency:
 
 <pre>
 objc_library(
     name = "MyAwesomeApp_lib",
     srcs = ["src/MyAwesomeApp.m", "src/MyAwesomeApp.h"],
-    <strong>deps = ["@MOLCodesignChecker//:MOLCodesignChecker"],</strong>
+    <strong>deps = ["@molcodesignchecker//:MOLCodesignChecker"],</strong>
 )
 </pre>
 
