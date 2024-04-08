@@ -1,0 +1,11 @@
+module(name = "molcodesignchecker", version = "3.0")
+
+bazel_dep(name = "apple_support", version = "1.15.1", repo_name = "build_bazel_apple_support")
+bazel_dep(name = "rules_apple", version = "3.5.0", repo_name = "build_bazel_rules_apple")
+
+bazel_dep(name = "molcertificate", version = "2.1")
+git_override(
+    module_name = "molcertificate",
+    remote = "https://github.com/google/macops-molcertificate.git",
+    commit = "34f0ccf68a34a07cc636ada89057c529f90bec3a",
+)
